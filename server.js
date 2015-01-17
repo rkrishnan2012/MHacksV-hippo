@@ -89,14 +89,11 @@ function ensureAuthenticated(req, res, next) {
     res.redirect('/login')
 }
 
-function checkFacebookNotifications() {
-    Facebook.api('me/notifications', function(res) {
-        if (!res || res.error) {
-            console.log(!res ? 'error occurred' : res.error);
-            return;
-        }
-        console.log(res.data.length);
-    });
-}
+var normalizedPath = require("path").join(__dirname, "providers");
+
+require("fs").readdirSync(normalizedPath).forEach(function(file) {
+  require("./providers/" + file).start();
+});
+
 
 app.listen(3000);
