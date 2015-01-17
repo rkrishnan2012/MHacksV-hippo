@@ -23,7 +23,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new FacebookStrategy({
         clientID: config.facebook_api_key,
         clientSecret: config.facebook_api_secret,
-        callbackURL: config.callback_url
+        callbackURL: config.facebook_callback_url
     },
     function(accessToken, refreshToken, profile, done) {
         Facebook.setAccessToken(accessToken);
