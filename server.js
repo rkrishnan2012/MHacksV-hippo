@@ -1,5 +1,4 @@
 var express = require('express'),
-    passport = require('passport'),
     util = require('util'),
     FacebookStrategy = require('passport-facebook').Strategy,
     TwitterStrategy = require('passport-twitter').Strategy,
@@ -16,6 +15,13 @@ var twtClient = {
     consumer_key: '',
     consumer_secret: ''
 }
+    app = express();
+
+Facebook = require('fbgraph');
+FacebookStrategy = require('passport-facebook').Strategy;
+
+passport = require('passport');
+
 // Passport session setup.
 passport.serializeUser(function(user, done) {
     done(null, user);
@@ -23,22 +29,6 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(obj, done) {
     done(null, obj);
 });
-
-// Use the FacebookStrategy within Passport.
-passport.use(new FacebookStrategy({
-        clientID: config.facebook_api_key,
-        clientSecret: config.facebook_api_secret,
-        callbackURL: config.facebook_callback_url
-    },
-    function(accessToken, refreshToken, profile, done) {
-        Facebook.setAccessToken(accessToken);
-        checkFacebookNotifications();
-        isFacebookAuthenticated = true;
-        process.nextTick(function() {
-            return done(null, profile);
-        });
-    }
-));
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
@@ -66,9 +56,18 @@ app.get('/', function(req, res) {
     });
 });
 
+app.get('/testSiteVisits', function(req, res) {
+    res.render('websiteCounter', {});
+});
+
+app.get('/webHit', function(req, res) {
+  console.log("HIT!");
+  res.end();
+});
+
 //  Route to setup the facebook authentication
 app.get('/auth/facebook', passport.authenticate('facebook', {
-    scope: ['manage_notifications']
+    scope: ['manage_notifications', 'read_mailbox']
 }));
 
 //  Callback route invoked by facebook upon authentication
@@ -94,15 +93,12 @@ function ensureAuthenticated(req, res, next) {
     res.redirect('/login')
 }
 
-function checkFacebookNotifications() {
-    Facebook.api('me/notifications', function(res) {
-        if (!res || res.error) {
-            console.log(!res ? 'error occurred' : res.error);
-            return;
-        }
-        console.log(res.data.length);
-    });
-}
+var normalizedPath = require("path").join(__dirname, "providers");
+
+require("fs").readdirSync(normalizedPath).forEach(function(file) {
+  require("./providers/" + file).start(config);
+});
+
 
 function streamTwitter() {
     //twClient.stream('user/')

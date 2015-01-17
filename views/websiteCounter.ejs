@@ -1,0 +1,16 @@
+<html>
+<head>
+<title>My Super Hippo Website</title>
+</head>
+<body>
+
+<script>
+window.onload = function(){
+	var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", "http://localhost:3000/webHit", false );
+    xmlHttp.send(null);
+    return xmlHttp.responseText;
+}
+</script>	
+</body>
+</html>
