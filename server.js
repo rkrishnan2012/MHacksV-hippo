@@ -7,10 +7,14 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     config = require('./config'),
     Facebook = require('fb'),
+    Twitter = require('twitter'),
     app = express();
 
 var isFacebookAuthenticated = false;
-
+var twtClient = {
+    consumer_key: '',
+    consumer_secret: ''
+}
 // Passport session setup.
 passport.serializeUser(function(user, done) {
     done(null, user);
@@ -97,6 +101,10 @@ function checkFacebookNotifications() {
         }
         console.log(res.data.length);
     });
+}
+
+function streamTwitter() {
+    //twClient.stream('user/')
 }
 
 app.listen(3000);
