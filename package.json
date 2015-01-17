@@ -1,0 +1,33 @@
+{
+  "dependencies": {
+    "body-parser": "^1.10.1",
+    "cookie-parser": "^1.3.3",
+    "ejs": "^2.1.4",
+    "express": "^4.11.0",
+    "express-session": "^1.10.1",
+    "passport": "^0.2.1",
+    "passport-facebook": "^1.0.3",
+    "util": "^0.10.3"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "MHacksV-hippo",
+  "description": "MHacksV-Hippo",
+  "version": "0.0.0",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rkrishnan2012/MHacksV-hippo.git"
+  },
+  "keywords": [
+    "MHacks",
+    "V"
+  ],
+  "author": "Rohit Krishnan, Matt O'Hagan, Cody Campbell",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rkrishnan2012/MHacksV-hippo/issues"
+  },
+  "homepage": "https://github.com/rkrishnan2012/MHacksV-hippo"
+}
