@@ -11,6 +11,7 @@
     "mail-listener2": "^0.1.7",
     "passport": "^0.2.1",
     "passport-facebook": "^1.0.3",
+    "serialport": "^1.4.10",
     "util": "^0.10.3"
   },
   "scripts": {

@@ -20,5 +20,23 @@ module.exports.start = function(config) {
 
     mailListener.on("mail", function(mail, seqno, attributes) {
         console.log("New Email!");
+        notify();
     });
+}
+
+
+function notify() {
+    if (isSerialPortOpen) {
+        console.log("Sending push notification.");
+        serialPort.write("gmail", function(err, results) {});
+    } else {
+        console.log("Port is not yet open. ");
+        serialPort.list(function(err, ports) {
+            ports.forEach(function(port) {
+                console.log(port.comName);
+                console.log(port.pnpId);
+                console.log(port.manufacturer);
+            });
+        });
+    }
 }

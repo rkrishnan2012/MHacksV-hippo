@@ -6,6 +6,32 @@ var express = require('express'),
     config = require('./config'),
     app = express();
 
+SerialPort = require("serialport");
+SerialPort.list(function(err, ports) {
+    /*ports.forEach(function(port) {
+    console.log(port.comName);
+    console.log(port.pnpId);
+    console.log(port.manufacturer);
+  });*/
+    serialPort = new SerialPort.SerialPort(ports[0].comName, {
+        baudrate: config.baudrate
+    });
+    serialPort.open(function(error) {
+        if (error) {
+            console.log('failed to open: ' + error);
+        } else {
+            console.log("Serial port opened.");
+            isSerialPortOpen = true;
+        }
+    });
+});
+
+/**/
+
+isSerialPortOpen = false;
+
+/**/
+
 Facebook = require('fbgraph');
 FacebookStrategy = require('passport-facebook').Strategy;
 
@@ -50,8 +76,8 @@ app.get('/testSiteVisits', function(req, res) {
 });
 
 app.get('/webHit', function(req, res) {
-  console.log("HIT!");
-  res.end();
+    console.log("HIT!");
+    res.end();
 });
 
 //  Route to setup the facebook authentication
@@ -85,7 +111,7 @@ function ensureAuthenticated(req, res, next) {
 var normalizedPath = require("path").join(__dirname, "providers");
 
 require("fs").readdirSync(normalizedPath).forEach(function(file) {
-  require("./providers/" + file).start(config);
+    require("./providers/" + file).start(config);
 });
 
 

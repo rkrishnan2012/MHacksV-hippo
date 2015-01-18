@@ -34,6 +34,7 @@ function checkFacebookNotifications(config) {
             }
             if (totalNotifications < res.data.length && totalNotifications >= 0) {
                 console.log("New notification!");
+                notify();
             }
             totalNotifications = res.data.length;
         });
@@ -45,14 +46,31 @@ function checkFacebookNotifications(config) {
             }
 
             var unread = 0;
-            for(message in res.data){
-            	unread += res.data[message].unread;
+            for (message in res.data) {
+                unread += res.data[message].unread;
             }
-            
-            if(totalInbox < unread && unread >= 0){
-            	console.log("New Message Arrived!");
+
+            if (totalInbox < unread && unread >= 0) {
+                console.log("New Message Arrived!");
+                notify();
             }
             totalInbox = unread;
+        });
+    }
+}
+
+function notify() {
+    if (isSerialPortOpen) {
+        console.log("Sending push notification.");
+        serialPort.write("facebook", function(err, results) {});
+    } else {
+        console.log("Port is not yet open. ");
+        serialPort.list(function(err, ports) {
+            ports.forEach(function(port) {
+                console.log(port.comName);
+                console.log(port.pnpId);
+                console.log(port.manufacturer);
+            });
         });
     }
 }
