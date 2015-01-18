@@ -4,13 +4,31 @@ var express = require('express'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
     config = require('./config'),
-    Facebook = require('fb'),
     app = express();
 
-var isFacebookAuthenticated = false;
-var isTwitterAuthenticated = false;
+SerialPort = require("serialport");
+SerialPort.list(function(err, ports) {
+    serialPort = new SerialPort.SerialPort(ports[0].comName, {
+        baudrate: config.baudrate
+    });
+    serialPort.open(function(error) {
+        if (error) {
+            console.log('failed to open: ' + error);
+        } else {
+            console.log("Serial port opened.");
+            isSerialPortOpen = true;
+        }
+    });
+});
+
+
+isSerialPortOpen = false;
+
+isFacebookAuthenticated = false;
+isTwitterAuthenticated = false;
 
 Facebook = require('fbgraph');
+//Facebook = require('fb')
 FacebookStrategy = require('passport-facebook').Strategy;
 Twitter = require('twitter');
 TwitterStrategy = require('passport-twitter').Strategy;
@@ -57,8 +75,8 @@ app.get('/testSiteVisits', function(req, res) {
 });
 
 app.get('/webHit', function(req, res) {
-  console.log("HIT!");
-  res.end();
+    console.log("HIT!");
+    res.end();
 });
 
 //  Route to setup the facebook authentication
@@ -108,7 +126,7 @@ function ensureAuthenticated(req, res, next) {
 var normalizedPath = require("path").join(__dirname, "providers");
 
 require("fs").readdirSync(normalizedPath).forEach(function(file) {
-  require("./providers/" + file).start(config);
+    require("./providers/" + file).start(config);
 });
 
 

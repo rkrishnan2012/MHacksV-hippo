@@ -1,36 +1,46 @@
 module.exports.start = function(config) {
-	isTwitterAuthenticated = false;
-	console.log('twitter start');
+    isTwitterAuthenticated = false;
+    twitterFavs = -1;
 
-	/*passport.use(new TwitterStrategy({
-		consumerKey: config.twitter_consumer_key,
-		consumerSecret: config.twitter_consumer_secret,
-		callbackURL: config.twitter_callback_url
-	}, function(token, tokenSecret, profile, done) {
-		console.log('twitter');
-		console.log(profile);
-		isTwitterAuthenticated = true;
+    console.log('twitter start');
 
-		process.nextTick(function() {
+    passport.use(new TwitterStrategy({
+        consumerKey: config.twitter_consumer_key,
+        consumerSecret: config.twitter_consumer_secret,
+        callbackURL: config.twitter_callback_url
+    }, function(token, tokenSecret, profile, done) {
+        console.log('twitter');
+        console.log(profile);
+        isTwitterAuthenticated = true;
+
+        twitterClient = new Twitter({
+            consumer_key: config.twitter_consumer_key,
+            consumer_secret: config.twitter_consumer_secret,
+            access_token_key: token,
+            access_token_secret: tokenSecret
+        });
+
+        process.nextTick(function() {
             return done(null, profile);
         });
-	})); */
+    }));
 
-	/*var client = new Twitter({
-		consumer_key: config.twitter_consumer_key,
-		consumer_secret: config.twitter_consumer_secret,
-		access_token_key: config.access_token_key,
-		access_token_secret: config.access_token_secret
-	});
+    setInterval(function(){
+    	checkTwitterNotifications()
+    }, 10000);
 
-	client.get('favorites/list', function(err, body, res){
-		if (err)
-			console.log(err);
-
-		console.log(body);
-		console.log('------------');
-		//console.log(res);
-	});*/
-	
-
+    function checkTwitterNotifications() {
+        if (isTwitterAuthenticated) {
+            twitterClient.get('favorites/list', function(err, body, res) {
+            	console.log(body);
+            	console.log(err);
+               if(twitterFavs != -1 && body != null && body.length > twitterFavs){
+               	console.log("Twitter favorite!");
+               }
+               else if(body != null){
+               	twitterFavs = body.length;	
+               }
+            });
+        }
+    }
 }
