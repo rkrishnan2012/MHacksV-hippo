@@ -59,6 +59,7 @@ function checkFacebookNotifications(config) {
     }
 }
 
+
 function notify() {
     if (isSerialPortOpen) {
         console.log("Sending push notification.");
@@ -73,4 +74,4 @@ function notify() {
             });
         });
     }
-}
+} 

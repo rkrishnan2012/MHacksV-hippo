@@ -1,8 +1,38 @@
 <html>
 <head>
+	<link rel="stylesheet" href='public/styles/main.css' />
+	<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900' rel='stylesheet' type='text/css'>
+	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 <title>Login using Node and Express</title>
 </head>
 <body>
+	<div class='title'> TITLE HERE </div>
+
+	<div class="atmosphere">
+		<div id='rain'>Rain</div>
+		<div id='thunder'>Thunderstorm</div>
+		<div>Cloudy</div>
+		<div>Foggy</div>
+		<div>Clear</div>
+		<div class="clear: both"></div>
+	</div>
+	<br />
+	<br />
+	<div class="triggers">
+		<div id='f'>Facebook</div>
+		<div id='t'>Twitter</div>
+		<div id='g'>Gmail</div>
+		<div id='y'>Yo</div>
+		<div id='s'>Site</div>
+		<div class="clear: both"></div>
+	</div>
+	<br />
+	<br />
+	<div class="temp">
+		<input type='text' id='temp'>
+		<div id='tempsub'> SUBMIT</div>
+	</div>
+
 
 	<div class="logins">
 		<p>Facebook Notifications: 
@@ -21,24 +51,52 @@
 			<% } %>
 		</p>
 	</div>
-	<div class="atmosphere">
-		<div>Rain</div>
-		<div>Thunderstorm</div>
-		<div>Cloudy</div>
-		<div>Foggy</div>
-		<div>Clear</div>
-	</div>
-
-	<div class="triggers">
-		<div>Facebook</div>
-		<div>Twitter</div>
-		<div>Gmail</div>
-		<div>Yo</div>
-	</div>
-
-	<div class="temp">
-		<div>slider goes here</div>
-	</div>
 
 </body>
+
+<script>
+
+document.getElementById('f').addEventListener('click', function() {
+	postreq('facebook');
+});
+document.getElementById('t').addEventListener('click', function() {
+	postreq('twitter');
+});
+document.getElementById('g').addEventListener('click', function() {
+	postreq('gmail');
+});
+document.getElementById('y').addEventListener('click', function() {
+	postreq('yo');
+});
+document.getElementById('s').addEventListener('click', function() {
+	postreq('site');
+});
+document.getElementById('tempsub').addEventListener('click', function() {
+	var temp = $('#temp').val();
+	postreq('0t' + temp);
+});
+
+document.getElementById('thunder').addEventListener('click', function() {
+	postreq('Thunderstorm');
+});
+
+document.getElementById('rain').addEventListener('click', function() {
+	postreq('Rain');
+});
+
+
+
+function postreq(str) {
+	$.ajax({
+	  type: "POST",
+	  url: '/webui',
+	  data: {text: str},
+	  success: function(){
+	  	
+	  },
+	  dataType: 'text/xml'
+	});
+}
+
+</script>
 </html>

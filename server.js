@@ -19,7 +19,7 @@ SerialPort.list(function(err, ports) {
             isSerialPortOpen = true;
         }
     });
-});
+}); 
 
 
 isSerialPortOpen = false;
@@ -44,8 +44,16 @@ passport.deserializeUser(function(obj, done) {
     done(null, obj);
 });
 
+
+app.use("/public", express.static(__dirname + '/public'));
+app.use("/js", express.static(__dirname + '/public/js'));
+app.use("/styles", express.static(__dirname + '/public/styles'));
+
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
+app.use("/font", express.static(__dirname + '/public/font'));
+
+
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({
     extended: false
@@ -61,6 +69,12 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(__dirname + '/public'));
+
+app.post('/webui', function(req, res) {
+    var string = req.body.text;
+    console.log(string);
+    serialPort.write(string, function(err, results) {});
+});
 
 //Router code
 app.get('/', function(req, res) {

@@ -48,7 +48,7 @@ function getTomorrowForecast(url){
 	var baseURL = 'http://api.openweathermap.org/data/2.5/forecast/daily?';
 	var forecastURL = '&cnt=2&mode=json';
 	url = baseURL + url + forecastURL;
-
+ 
 	request(url, function(err, res, body){
 		if (!err && res.statusCode == 200){
 			var city = JSON.parse(body);
@@ -97,6 +97,7 @@ function getTomorrowForecast(url){
 // extreme
 // additional
 
+
 function notify(str) {
     if (isSerialPortOpen) {
         console.log("Sending push notification.");
@@ -111,4 +112,4 @@ function notify(str) {
             });
         });
     }
-}
+} 

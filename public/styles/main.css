@@ -1,0 +1,41 @@
+body {
+	font-family: 'Lato', sans-serif;
+	font-size: 35px;
+	background-color: #303030;
+	color: #fff;
+	font-weight: 300;
+}
+
+.title {
+	text-align: center;
+	margin: 20px;
+	margin-bottom: 50px;
+	font-weight: bold;
+}
+
+.atmosphere {
+	margin: 25px;
+	margin-left: 0;
+}
+
+.atmosphere div {
+	float: left;
+	position: relative;
+	margin-left: 20px;
+}
+
+.atmosphere div:hover {
+	cursor: pointer;
+	color: rgba(255, 255, 255, 0.7);
+}
+
+.triggers div {
+	float: left;
+	position: relative;
+	margin-left: 20px;
+}
+
+.triggers div:hover {
+	cursor: pointer;
+	color: rgba(255, 255, 255, 0.7);
+}
