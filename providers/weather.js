@@ -17,7 +17,9 @@ function getCurrentForecast(url){
 			var weather = city.weather[0];
 			var general = weather.main;
 			var specific = weather.id;
+			var temp = city.main.temp - 272.15;
 
+			console.log(temp);
 			console.log(general);
 			console.log(specific);
 			setTimeout(getCurrentForecast, 600000);
@@ -41,7 +43,9 @@ function getTomorrowForecast(url){
 			var weather = city.list[1].weather[0];
 			var general = weather.main;
 			var specific = weather.id;
+			var temp = city.list[1].temp.day - 272.15;
 
+			console.log(temp);
 			console.log(general);
 			console.log(specific);
 			setTimeout(getTomorrowForecast, 600000);
