@@ -3,21 +3,42 @@
 <title>Login using Node and Express</title>
 </head>
 <body>
-	<p>Facebook Notifications: 
-		<% if(!isFacebookAuthenticated) {%>
-			<a href="/auth/facebook"><input type="submit" value="Facebook Login" width="151" height="24"></a>
-		<% } else {%>
-			All Set.
-		<% } %>
-	</p>
 
-	<p>Twitter Notifications: 
-		<% if(!isTwitterAuthenticated) {%>
-			<a href="/auth/twitter"><input type="submit" value="Twitter Login" width="151" height="24"></a>
-		<% } else {%>
-			All Set.
-		<% } %>
-	</p>
+	<div class="logins">
+		<p>Facebook Notifications: 
+			<% if(!isFacebookAuthenticated) {%>
+				<a href="/auth/facebook"><input type="submit" value="Facebook Login" width="151" height="24"></a>
+			<% } else {%>
+				All Set.
+			<% } %>
+		</p>
+
+		<p>Twitter Notifications: 
+			<% if(!isTwitterAuthenticated) {%>
+				<a href="/auth/twitter"><input type="submit" value="Twitter Login" width="151" height="24"></a>
+			<% } else {%>
+				All Set.
+			<% } %>
+		</p>
+	</div>
+	<div class="atmosphere">
+		<div>Rain</div>
+		<div>Thunderstorm</div>
+		<div>Cloudy</div>
+		<div>Foggy</div>
+		<div>Clear</div>
+	</div>
+
+	<div class="triggers">
+		<div>Facebook</div>
+		<div>Twitter</div>
+		<div>Gmail</div>
+		<div>Yo</div>
+	</div>
+
+	<div class="temp">
+		<div>slider goes here</div>
+	</div>
 
 </body>
 </html>
