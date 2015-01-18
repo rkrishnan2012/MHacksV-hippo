@@ -12,11 +12,11 @@ var isTwitterAuthenticated = false;
 
 Facebook = require('fbgraph');
 FacebookStrategy = require('passport-facebook').Strategy;
+Twitter = require('twitter');
 TwitterStrategy = require('passport-twitter').Strategy;
 
 passport = require('passport');
 request = require('request'); 
-Twitter = require('twitter');
 
 // Passport session setup.
 passport.serializeUser(function(user, done) {
@@ -73,6 +73,7 @@ app.get('/auth/facebook/callback',
         failureRedirect: '/login'
     }),
     function(req, res) {
+        console.log('facebook done');
         res.redirect('/');
     }
 );
@@ -111,8 +112,5 @@ require("fs").readdirSync(normalizedPath).forEach(function(file) {
 });
 
 
-function streamTwitter() {
-    //twClient.stream('user/')
-}
 
 app.listen(3000);

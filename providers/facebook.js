@@ -2,7 +2,7 @@ module.exports.start = function(config) {
     isFacebookAuthenticated = false;
     totalNotifications = -1;
     totalInbox = -1;
-
+    console.log('FACEBOOK');
     // Use the FacebookStrategy within Passport.
     passport.use(new FacebookStrategy({
             clientID: config.facebook_api_key,
