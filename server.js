@@ -1,26 +1,22 @@
 var express = require('express'),
     util = require('util'),
-    FacebookStrategy = require('passport-facebook').Strategy,
-    TwitterStrategy = require('passport-twitter').Strategy,
     session = require('express-session'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
     config = require('./config'),
     Facebook = require('fb'),
-    Twitter = require('twitter'),
     app = express();
 
 var isFacebookAuthenticated = false;
-var twtClient = {
-    consumer_key: '',
-    consumer_secret: ''
-}
-    app = express();
+var isTwitterAuthenticated = false;
 
 Facebook = require('fbgraph');
 FacebookStrategy = require('passport-facebook').Strategy;
+TwitterStrategy = require('passport-twitter').Strategy;
 
 passport = require('passport');
+request = require('request'); 
+Twitter = require('twitter');
 
 // Passport session setup.
 passport.serializeUser(function(user, done) {
@@ -78,12 +74,27 @@ app.get('/auth/facebook/callback',
     }),
     function(req, res) {
         res.redirect('/');
-    });
+    }
+);
+
+// route to set up twitter auth
+app.get('/auth/twitter', passport.authenticate('twitter'));
+
+// callback route invoked by twitter
+app.get('/auth/twitter/callback', 
+  passport.authenticate('twitter', { successRedirect: '/',
+                                     failureRedirect: '/login' })
+);
 
 //  Logout of all the services
 app.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
+});
+
+// access weather info
+app.get('/weather', function(req, res) {
+    console.log('weather');
 });
 
 function ensureAuthenticated(req, res, next) {
