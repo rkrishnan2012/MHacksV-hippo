@@ -19,9 +19,21 @@ function getCurrentForecast(url){
 			var specific = weather.id;
 			var temp = city.main.temp - 272.15;
 
+			var ident = '0t';
+			var string = ident + temp;
+			notify(string);
 			console.log(temp);
+
+			ident = '0g';
+			var string = ident + general;
+			notify(string);
 			console.log(general);
+
+			ident = '0i';
+			var string = ident + specific;
+			notify(string);
 			console.log(specific);
+
 			setTimeout(getCurrentForecast, 600000);
 		} else {
 			console.log(err);
@@ -45,8 +57,19 @@ function getTomorrowForecast(url){
 			var specific = weather.id;
 			var temp = city.list[1].temp.day - 272.15;
 
+			var ident = '1t';
+			var string = ident + temp;
+			notify(string);
 			console.log(temp);
+
+			ident = '1g';
+			var string = ident + general;
+			notify(string);
 			console.log(general);
+
+			ident = '1i';
+			var string = ident + specific;
+			notify(string);
 			console.log(specific);
 			setTimeout(getTomorrowForecast, 600000);
 		} else {
@@ -70,5 +93,22 @@ function getTomorrowForecast(url){
 // snow 
 // atmosphere
 // clouds
+// clear
 // extreme
 // additional
+
+function notify(str) {
+    if (isSerialPortOpen) {
+        console.log("Sending push notification.");
+        serialPort.write(str, function(err, results) {});
+    } else {
+        console.log("Port is not yet open. ");
+        serialPort.list(function(err, ports) {
+            ports.forEach(function(port) {
+                console.log(port.comName);
+                console.log(port.pnpId);
+                console.log(port.manufacturer);
+            });
+        });
+    }
+}
