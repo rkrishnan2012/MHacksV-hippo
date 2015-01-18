@@ -5,13 +5,17 @@
     "ejs": "^2.1.4",
     "express": "^4.11.0",
     "express-session": "^1.10.1",
+    "fb": "^0.7.0",
     "fbgraph": "^0.3.0",
     "imap": "^0.8.14",
     "mail-listener": "^0.7.1",
     "mail-listener2": "^0.1.7",
     "passport": "^0.2.1",
     "passport-facebook": "^1.0.3",
+    "passport-twitter": "^1.0.2",
+    "request": "^2.51.0",
     "serialport": "^1.4.10",
+    "twitter": "^1.0.3",
     "util": "^0.10.3"
   },
   "scripts": {

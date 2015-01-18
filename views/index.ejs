@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Facebook Login using Node and Express</title>
+<title>Login using Node and Express</title>
 </head>
 <body>
 	<p>Facebook Notifications: 
@@ -10,5 +10,14 @@
 			All Set.
 		<% } %>
 	</p>
+
+	<p>Twitter Notifications: 
+		<% if(!isTwitterAuthenticated) {%>
+			<a href="/auth/twitter"><input type="submit" value="Twitter Login" width="151" height="24"></a>
+		<% } else {%>
+			All Set.
+		<% } %>
+	</p>
+
 </body>
 </html>
