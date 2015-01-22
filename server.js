@@ -8,8 +8,12 @@ var express = require('express'),
 
 SerialPort = require("serialport");
 SerialPort.list(function(err, ports) {
+    console.log(ports);
     serialPort = new SerialPort.SerialPort(ports[0].comName, {
         baudrate: config.baudrate
+    });
+    serialPort.on('data', function(data) {
+        console.log('data received: ' + data);
     });
     serialPort.open(function(error) {
         if (error) {
@@ -73,7 +77,12 @@ app.use(express.static(__dirname + '/public'));
 app.post('/webui', function(req, res) {
     var string = req.body.text;
     console.log(string);
-    serialPort.write(string, function(err, results) {});
+    if(isSerialPortOpen){
+        serialPort.write(string, function(err, results) {
+            console.log(results);
+            console.log(err);
+        });    
+    }
 });
 
 //Router code
